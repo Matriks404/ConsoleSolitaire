@@ -9,7 +9,6 @@ namespace ConsoleSolitaire.Game
     public class Card
     {
         public bool Hidden { get; set; }
-        public bool Selected { get; set; }
         public CardSuit Suit { get; private set; }
         public CardNumber Number { get; private set; }
    
@@ -51,92 +50,6 @@ namespace ConsoleSolitaire.Game
             }
 
             nextToCornerPile.Add(cornerPile.Pop());
-        }
-
-        public void DisplayCard(int x, int y)
-        {
-            int width = 10;
-
-            Console.SetCursorPosition(x, y);
-            TopBottomBoundary();
-            Console.SetCursorPosition(x, y + 1);
-            TopNumber();
-
-            Console.SetCursorPosition(x, y + 2);
-            SuitName();
-
-            Console.SetCursorPosition(x, y + 3);
-            BottomNumber();
-
-            Console.SetCursorPosition(x, y + 4);
-            TopBottomBoundary();
-
-            void Spaces()
-            {
-                int amountOfSpaces = width - 2 - GetNumber().Length;
-
-                for (int i = 0; i < amountOfSpaces; i++)
-                {
-                    Console.Write(' ');
-                }
-            }
-
-            char Boundary() => (Selected) ? ':' : '#';
-
-            void TopBottomBoundary()
-            {
-                for (int i = 0; i < width; i++)
-                {
-                    Console.Write(Boundary());
-                }
-
-                Console.WriteLine();
-            }
-
-            void TopNumber()
-            {
-                Console.Write(Boundary());
-                Console.Write(GetNumber());
-
-                Spaces();
-
-                Console.WriteLine(Boundary());
-            }
-
-            void SuitName()
-            {
-                int leftSpaces = (width - Suit.ToString().Length - 2) / 2;
-                int rightSpaces = leftSpaces;
-
-                if (Suit.ToString().Length % 2 == 1)
-                    rightSpaces++;
-
-                Console.Write(Boundary());
-
-                for (int i = 0; i < leftSpaces; i++)
-                {
-                    Console.Write(' ');
-                }
-
-                Console.Write(Suit);
-
-                for (int i = 0; i < rightSpaces; i++)
-                {
-                    Console.Write(' ');
-                }
-
-                Console.WriteLine(Boundary());
-            }
-
-            void BottomNumber()
-            {
-                Console.Write(Boundary());
-
-                Spaces();
-
-                Console.Write(GetNumber());
-                Console.WriteLine(Boundary());
-            }
         }
 
         public string GetNumber() { 

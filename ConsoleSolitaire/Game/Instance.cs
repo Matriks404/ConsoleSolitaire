@@ -11,9 +11,9 @@ namespace ConsoleSolitaire.Game
     public class Instance
     {
         public bool StillPlaying { get; private set; }
-        private Card[] SelectableCards { get; set; }
-        private int SelectedCardPosition { get; set; }
-        private Card SelectedCard { get; set; }
+        private PileBase[] SelectablePiles { get; set; }
+        private int SelectedPilePosition { get; set; }
+        private PileBase SelectedPile { get; set; }
 
         private CornerPile cornerPile = new CornerPile();
         private NextToCornerPile nextToCornerPile = new NextToCornerPile();
@@ -44,9 +44,8 @@ namespace ConsoleSolitaire.Game
 
             //TODO: Remove this later. We want user to get the first card from the corner pile.
             Card.GetNext(ref cornerPile, ref nextToCornerPile);
-            //GetNextCard();
 
-            SetupSelectableCards();
+            SetupSelectablePiles();
         }
 
         public void Loop()
@@ -57,24 +56,24 @@ namespace ConsoleSolitaire.Game
 
         private void Display()
         {
-            cornerPile.Last().DisplayCard(0, 3);
-            nextToCornerPile.Last().DisplayCard(12, 3);
+            cornerPile.Display(0, 3);
+            nextToCornerPile.Display(12, 3);
 
             if (winningClubsPile.Any())
-                winningClubsPile.Last().DisplayCard(36, 3);
+                winningClubsPile.Display(36, 3);
 
             if (winningDiamondsPile.Any())
-                winningDiamondsPile.Last().DisplayCard(48, 3);
+                winningDiamondsPile.Display(48, 3);
 
             if (winningHeartsPile.Any())
-                winningHeartsPile.Last().DisplayCard(60, 3);
+                winningHeartsPile.Display(60, 3);
 
             if (winningSpadesPile.Any())
-                winningSpadesPile.Last().DisplayCard(72, 3);
+                winningSpadesPile.Display(72, 3);
 
             for (int i = 0; i < fieldPiles.Length; i++)
             {
-                fieldPiles[i].Last().DisplayCard(i * 12, 10);
+                fieldPiles[i].Display(i * 12, 10);
             }
         }
 
@@ -86,62 +85,68 @@ namespace ConsoleSolitaire.Game
             switch(key.Key)
             {
                 case ConsoleKey.LeftArrow:
-                    SelectPreviousCard();
+                    SelectPreviousPile();
                     break;
                 case ConsoleKey.RightArrow:
-                    SelectNextCard();
+                    SelectNextPile();
                     break;
                 case ConsoleKey.Spacebar:
                     //TODO: Select card properly.
                     break;
             }
-
-            SetupSelectableCards();
         }
 
-        //TODO: Selectable piles, not cards.
-        private void SetupSelectableCards()
+        private void SetupSelectablePiles()
         {
-            SelectableCards = new Card[] {
-                cornerPile.Last(),
-                nextToCornerPile.Last(),
-                fieldPiles[0].Last(),
-                fieldPiles[1].Last(),
-                fieldPiles[2].Last(),
-                fieldPiles[3].Last(),
-                fieldPiles[4].Last(),
-                fieldPiles[5].Last(),
-                fieldPiles[6].Last(),
+            SelectablePiles = new PileBase[] {
+                cornerPile,
+                nextToCornerPile,
+                fieldPiles[0],
+                fieldPiles[1],
+                fieldPiles[2],
+                fieldPiles[3],
+                fieldPiles[4],
+                fieldPiles[5],
+                fieldPiles[6],
             };
 
-            SelectedCard = SelectableCards[SelectedCardPosition];
-            SelectedCard.Selected = true;
+            UpdateSelectedPile();
         }
 
-        private void SelectNextCard()
+        private void SelectNextPile()
         {
-            SelectedCard.Selected = false;
+            SelectedPile.Selected = false;
 
-            if (SelectedCardPosition + 1 < SelectableCards.Length)
+            if (SelectedPilePosition + 1 < SelectablePiles.Length)
             {
-                SelectedCardPosition++;
+                SelectedPilePosition++;
             } else
             {
-                SelectedCardPosition = 0;
+                SelectedPilePosition = 0;
             }
+
+            UpdateSelectedPile();
         }
 
-        private void SelectPreviousCard()
+        private void SelectPreviousPile()
         {
-            SelectedCard.Selected = false;
+            SelectedPile.Selected = false;
 
-            if (SelectedCardPosition == 0)
+            if (SelectedPilePosition == 0)
             {
-                SelectedCardPosition = SelectableCards.Length - 1;
+                SelectedPilePosition = SelectablePiles.Length - 1;
             } else
             {
-                SelectedCardPosition--;
+                SelectedPilePosition--;
             }
+
+            UpdateSelectedPile();
+        }
+
+        private void UpdateSelectedPile()
+        {
+            SelectedPile = SelectablePiles[SelectedPilePosition];
+            SelectedPile.Selected = true;
         }
     }
 }
