@@ -3,7 +3,7 @@ using GameModel;
 
 namespace ConsoleUI
 {
-    class Program
+    public static class Program
     {
         static readonly string name = "ConsoleSolitaire";
         static readonly string version = "0.1.0";
@@ -13,10 +13,12 @@ namespace ConsoleUI
             Console.WriteLine($"Version: {version}");
 
             var game = new GameModel.Instance();
+            var board = new GameBoard(game);
 
             do
             {
-                game.Loop();
+                board.Display();
+                game.Update();
             } while (game.StillPlaying);
         }
     }

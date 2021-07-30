@@ -15,15 +15,15 @@ namespace GameModel
         private int SelectedPilePosition { get; set; }
         private PileBase SelectedPile { get; set; }
 
-        private CornerPile cornerPile = new CornerPile();
-        private NextToCornerPile nextToCornerPile = new NextToCornerPile();
+        public readonly CornerPile cornerPile = new CornerPile();
+        public readonly NextToCornerPile nextToCornerPile = new NextToCornerPile();
 
-        private WinningPile winningClubsPile = new WinningPile(CardSuit.Clubs);
-        private WinningPile winningDiamondsPile = new WinningPile(CardSuit.Diamonds);
-        private WinningPile winningHeartsPile = new WinningPile(CardSuit.Hearts);
-        private WinningPile winningSpadesPile = new WinningPile(CardSuit.Spades);
+        public readonly WinningPile winningClubsPile = new WinningPile(CardSuit.Clubs);
+        public readonly WinningPile winningDiamondsPile = new WinningPile(CardSuit.Diamonds);
+        public readonly WinningPile winningHeartsPile = new WinningPile(CardSuit.Hearts);
+        public readonly WinningPile winningSpadesPile = new WinningPile(CardSuit.Spades);
 
-        private FieldPile[] fieldPiles = new FieldPile[7];
+        public readonly FieldPile[] fieldPiles = new FieldPile[7];
 
         public Instance()
         {
@@ -48,37 +48,7 @@ namespace GameModel
             SetupSelectablePiles();
         }
 
-        public void Loop()
-        {
-            Display();
-            Update();
-        }
-
-        private void Display()
-        {
-            cornerPile.Display(0, 3);
-            nextToCornerPile.Display(12, 3);
-
-            if (winningClubsPile.Any())
-                winningClubsPile.Display(36, 3);
-
-            if (winningDiamondsPile.Any())
-                winningDiamondsPile.Display(48, 3);
-
-            if (winningHeartsPile.Any())
-                winningHeartsPile.Display(60, 3);
-
-            if (winningSpadesPile.Any())
-                winningSpadesPile.Display(72, 3);
-
-            for (int i = 0; i < fieldPiles.Length; i++)
-            {
-                fieldPiles[i].Display(i * 12, 10);
-            }
-        }
-
-
-        private void Update()
+        public void Update()
         {
             var key = Console.ReadKey();
 
