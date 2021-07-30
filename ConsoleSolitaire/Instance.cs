@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using static ConsoleSolitaire.Game.Card;
+using static GameModel.Card;
 
-namespace ConsoleSolitaire.Game
+namespace GameModel
 {
     public class Instance
     {

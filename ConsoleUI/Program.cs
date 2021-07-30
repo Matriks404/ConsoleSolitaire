@@ -1,7 +1,7 @@
 ﻿using System;
-using ConsoleSolitaire.Game;
+using GameModel;
 
-namespace ConsoleSolitaire
+namespace ConsoleUI
 {
     class Program
     {
@@ -12,7 +12,7 @@ namespace ConsoleSolitaire
             Console.WriteLine($"===== {name} =====");
             Console.WriteLine($"Version: {version}");
 
-            var game = new Game.Instance();
+            var game = new GameModel.Instance();
 
             do
             {
