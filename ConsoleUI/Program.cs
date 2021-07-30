@@ -9,8 +9,10 @@ namespace ConsoleUI
         static readonly string version = "0.1.0";
         static void Main(string[] args)
         {
+            Console.Clear();
+
             Console.WriteLine($"===== {name} =====");
-            Console.Write($"Version: {version}");
+            Console.Write($"Version: {version} running on {Environment.OSVersion.VersionString}");
 
             var game = new GameModel.Instance();
             var board = new GameBoard(game);
