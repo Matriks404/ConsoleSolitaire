@@ -15,7 +15,6 @@ namespace GameModel
                 foreach (Card.CardNumber number in (Card.CardNumber[])Enum.GetValues(typeof(Card.CardNumber)))
                 {
                     Add(new Card(suit, number));
-                    Last().Hidden = true;
                 }
             }
         }
@@ -24,6 +23,7 @@ namespace GameModel
         public void PushToStart(Card card)
         {
             Insert(0, card);
+            this[0].Visible = false;
         }
 
         public Card Pop()

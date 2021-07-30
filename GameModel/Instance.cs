@@ -31,19 +31,15 @@ namespace GameModel
 
             cornerPile.Shuffle();
 
-            //TODO: Temporary
-            winningClubsPile.Add(new Card(CardSuit.Clubs, CardNumber.Ace));
-            winningDiamondsPile.Add(new Card(CardSuit.Diamonds, CardNumber.Ace));
-            winningHeartsPile.Add(new Card(CardSuit.Hearts, CardNumber.Ace));
-            winningSpadesPile.Add(new Card(CardSuit.Spades, CardNumber.Ace));
+            PutTestCardsOnWinningPiles();
 
             for (int i = 0; i < fieldPiles.Length; i++)
             {
-                fieldPiles[i] = new FieldPile(ref cornerPile, i + 1);
+                fieldPiles[i] = new FieldPile(cornerPile, i + 1);
             }
 
             //TODO: Remove this later. We want user to get the first card from the corner pile.
-            nextToCornerPile.GetNextCard(ref cornerPile);
+            nextToCornerPile.GetNextCard(cornerPile);
 
             SetupSelectablePiles();
         }
@@ -64,6 +60,20 @@ namespace GameModel
                     //TODO: Select card properly.
                     break;
             }
+        }
+
+        //TODO: This is temporary!
+        private void PutTestCardsOnWinningPiles()
+        {
+            winningClubsPile.Add(new Card(CardSuit.Clubs, CardNumber.Ace));
+            winningDiamondsPile.Add(new Card(CardSuit.Diamonds, CardNumber.Ace));
+            winningHeartsPile.Add(new Card(CardSuit.Hearts, CardNumber.Ace));
+            winningSpadesPile.Add(new Card(CardSuit.Spades, CardNumber.Ace));
+
+            winningClubsPile.Last().Visible = true;
+            winningDiamondsPile.Last().Visible = true;
+            winningHeartsPile.Last().Visible = true;
+            winningSpadesPile.Last().Visible = true;
         }
 
         private void SetupSelectablePiles()

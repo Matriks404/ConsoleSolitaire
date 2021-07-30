@@ -14,25 +14,39 @@ namespace ConsoleUI
         string cardSuit;
 
         //TODO: Card selection instead of pile selection for field piles.
-        public void Display(GameModel.Card lastCard, int x, int y, bool selected)
+        public void Display(GameModel.Card card, int x, int y, bool selected)
         {
             boundary = GetBoundary(selected);
-            cardNumber = lastCard.GetNumber();
-            cardSuit = lastCard.Suit.ToString();
 
+            // Write top and bottom boundaries.
             Console.SetCursorPosition(x, y);
-            Console.WriteLine(TopBottomBoundary());
-            Console.SetCursorPosition(x, y + 1);
-            Console.WriteLine(TopNumber());
-
-            Console.SetCursorPosition(x, y + 2);
-            Console.WriteLine(SuitName());
-
-            Console.SetCursorPosition(x, y + 3);
-            Console.WriteLine(BottomNumber());
+            Console.Write(HorizontalBoundary());
 
             Console.SetCursorPosition(x, y + 4);
-            Console.WriteLine(TopBottomBoundary());
+            Console.Write(HorizontalBoundary());
+
+            if (card.Visible)
+            {
+                cardNumber = card.GetNumber();
+                cardSuit = card.Suit.ToString();
+
+                Console.SetCursorPosition(x, y + 1);
+                Console.Write(TopNumber());
+
+                Console.SetCursorPosition(x, y + 2);
+                Console.Write(SuitName());
+
+                Console.SetCursorPosition(x, y + 3);
+                Console.Write(BottomNumber());
+            }
+            else
+            {
+                for (int i = 1; i <= 3; i++)
+                {
+                    Console.SetCursorPosition(x, y + i);
+                    Console.Write(VerticalBoundary());
+                }
+            }
         }
 
         private string BottomNumber() => boundary + Spaces() + cardNumber + boundary;
@@ -41,7 +55,7 @@ namespace ConsoleUI
 
         private char GetBoundary(bool selected) => (selected) ? ':' : '#';
 
-        private string TopBottomBoundary()
+        private string HorizontalBoundary()
         {
             string line = string.Empty;
 
@@ -49,6 +63,22 @@ namespace ConsoleUI
             {
                 line += boundary;
             }
+
+            return line;
+        }
+
+        private string VerticalBoundary()
+        {
+            string line = string.Empty;
+
+            line += boundary;
+
+            for (int i = 0; i < width - 2; i++)
+            {
+                line += ' ';
+            }
+
+            line += boundary;
 
             return line;
         }

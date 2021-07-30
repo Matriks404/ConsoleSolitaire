@@ -8,7 +8,7 @@ namespace GameModel
 {
     public class FieldPile : PileBase
     {
-        public FieldPile(ref CornerPile sourcePile, int count)
+        public FieldPile(CornerPile sourcePile, int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -16,7 +16,7 @@ namespace GameModel
 
                 if (i == count - 1)
                 {
-                    this.Last().Hidden = false;
+                    this.Last().Visible = true;
                 }
             }
         }

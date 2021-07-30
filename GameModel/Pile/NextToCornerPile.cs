@@ -8,15 +8,15 @@ namespace GameModel
 {
     public class NextToCornerPile : PileBase
     {
-        public void GetNextCard(ref CornerPile cornerPile)
+        public void GetNextCard(CornerPile cornerPile)
         {
             if (this.Last() != null)
             {
                 cornerPile.PushToStart(this.Last());
             }
 
-            cornerPile.Last().Hidden = false;
             this.Add(cornerPile.Pop());
+            this.Last().Visible = true;
         }
     }
 }

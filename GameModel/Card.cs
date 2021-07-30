@@ -8,7 +8,7 @@ namespace GameModel
 {
     public class Card
     {
-        public bool Hidden { get; set; }
+        public bool Visible { get; set; }
         public CardSuit Suit { get; private set; }
         public CardNumber Number { get; private set; }
    

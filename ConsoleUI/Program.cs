@@ -10,7 +10,7 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             Console.WriteLine($"===== {name} =====");
-            Console.WriteLine($"Version: {version}");
+            Console.Write($"Version: {version}");
 
             var game = new GameModel.Instance();
             var board = new GameBoard(game);
