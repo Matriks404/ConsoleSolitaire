@@ -43,7 +43,7 @@ namespace GameModel
             }
 
             //TODO: Remove this later. We want user to get the first card from the corner pile.
-            Card.GetNext(ref cornerPile, ref nextToCornerPile);
+            nextToCornerPile.GetNextCard(ref cornerPile);
 
             SetupSelectablePiles();
         }

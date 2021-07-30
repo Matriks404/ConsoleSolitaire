@@ -14,9 +14,9 @@ namespace GameModel
             {
                 this.Add(sourcePile.Pop());
 
-                if (i != count + 1)
+                if (i == count - 1)
                 {
-                    this.Last().Hidden = true;
+                    this.Last().Hidden = false;
                 }
             }
         }

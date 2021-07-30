@@ -42,15 +42,6 @@ namespace GameModel
             Hearts,
             Spades
         }
-        public static void GetNext(ref CornerPile cornerPile, ref NextToCornerPile nextToCornerPile)
-        {
-            if (nextToCornerPile.Last() != null)
-            {
-                cornerPile.PushToStart(nextToCornerPile.Last());
-            }
-
-            nextToCornerPile.Add(cornerPile.Pop());
-        }
 
         public string GetNumber() { 
             if (Number == CardNumber.Ace || Number > CardNumber.Ten)

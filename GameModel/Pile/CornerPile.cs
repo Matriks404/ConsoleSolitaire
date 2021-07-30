@@ -15,6 +15,7 @@ namespace GameModel
                 foreach (Card.CardNumber number in (Card.CardNumber[])Enum.GetValues(typeof(Card.CardNumber)))
                 {
                     Add(new Card(suit, number));
+                    Last().Hidden = true;
                 }
             }
         }
