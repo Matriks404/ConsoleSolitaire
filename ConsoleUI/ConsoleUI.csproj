@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleSolitaire\GameModel.csproj" />
+    <ProjectReference Include="..\GameModel\GameModel.csproj" />
   </ItemGroup>
 
 </Project>
