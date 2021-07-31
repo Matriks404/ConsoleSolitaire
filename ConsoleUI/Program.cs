@@ -22,6 +22,9 @@ namespace ConsoleUI
                 board.Display();
                 game.Update();
             } while (game.StillPlaying);
+
+            //TODO: This will be wrong in the future.
+            Console.CursorTop = 15;
         }
     }
 }

@@ -46,15 +46,22 @@ namespace GameModel
 
         public void Update()
         {
+            //TODO: Move this to the ConsoleUI.
             var key = Console.ReadKey();
 
             switch(key.Key)
             {
+                case ConsoleKey.Escape:
+                    StillPlaying = false;
+
+                    break;
                 case ConsoleKey.LeftArrow:
                     SelectPreviousPile();
+
                     break;
                 case ConsoleKey.RightArrow:
                     SelectNextPile();
+
                     break;
                 case ConsoleKey.Spacebar:
                     //TODO: Select card properly.
