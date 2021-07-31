@@ -44,28 +44,26 @@ namespace GameModel
             SetupSelectablePiles();
         }
 
-        public void Update()
+        public void Update(Message msg)
         {
-            //TODO: Move this to the ConsoleUI.
-            var key = Console.ReadKey();
-
-            switch(key.Key)
+            switch (msg)
             {
-                case ConsoleKey.Escape:
+                case Message.DoNothing:
+                    break;
+                case Message.Exit:
                     StillPlaying = false;
 
                     break;
-                case ConsoleKey.LeftArrow:
-                    SelectPreviousPile();
+                case Message.GoToPreviousPile:
+                    GoToPreviousPile();
 
                     break;
-                case ConsoleKey.RightArrow:
-                    SelectNextPile();
+                case Message.GoToNextPile:
+                    GoToNextPile();
 
                     break;
-                case ConsoleKey.Spacebar:
-                    //TODO: Select card properly.
-                    break;
+                case Message.SelectCards:
+                    throw new NotImplementedException();
             }
         }
 
@@ -99,32 +97,33 @@ namespace GameModel
 
             UpdateSelectedPile();
         }
-
-        private void SelectNextPile()
-        {
-            SelectedPile.Selected = false;
-
-            if (SelectedPilePosition + 1 < SelectablePiles.Length)
-            {
-                SelectedPilePosition++;
-            } else
-            {
-                SelectedPilePosition = 0;
-            }
-
-            UpdateSelectedPile();
-        }
-
-        private void SelectPreviousPile()
+        private void GoToPreviousPile()
         {
             SelectedPile.Selected = false;
 
             if (SelectedPilePosition == 0)
             {
                 SelectedPilePosition = SelectablePiles.Length - 1;
-            } else
+            }
+            else
             {
                 SelectedPilePosition--;
+            }
+
+            UpdateSelectedPile();
+        }
+
+        private void GoToNextPile()
+        {
+            SelectedPile.Selected = false;
+
+            if (SelectedPilePosition + 1 < SelectablePiles.Length)
+            {
+                SelectedPilePosition++;
+            }
+            else
+            {
+                SelectedPilePosition = 0;
             }
 
             UpdateSelectedPile();

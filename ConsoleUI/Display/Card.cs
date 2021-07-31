@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleUI
+namespace ConsoleUI.Display
 {
-    public class GameCard
+    public class Card
     {
         int width = 10;
         char boundary;

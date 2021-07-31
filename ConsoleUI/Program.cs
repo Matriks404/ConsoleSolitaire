@@ -15,12 +15,15 @@ namespace ConsoleUI
             Console.Write($"Version: {version} running on {Environment.OSVersion.VersionString}");
 
             var game = new GameModel.Instance();
-            var board = new GameBoard(game);
+            var board = new Display.Board(game);
 
             do
             {
                 board.Display();
-                game.Update();
+
+                GameModel.Message msg = Input.HandleInput();
+
+                game.Update(msg);
             } while (game.StillPlaying);
 
             //TODO: This will be wrong in the future.
