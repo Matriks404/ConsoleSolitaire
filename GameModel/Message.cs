@@ -10,6 +10,7 @@ namespace GameModel
     {
         DoNothing,
         Exit,
+        GetNextCard,
         SelectCards
     }
 }

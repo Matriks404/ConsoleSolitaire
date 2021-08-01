@@ -34,9 +34,6 @@ namespace GameModel
             {
                 fieldPiles[i] = new FieldPile(cornerPile, i + 1);
             }
-
-            //TODO: Remove this later. We want user to get the first card from the corner pile.
-            nextToCornerPile.GetNextCard(cornerPile);
         }
 
         public void Update(Message msg)
@@ -47,6 +44,10 @@ namespace GameModel
                     break;
                 case Message.Exit:
                     StillPlaying = false;
+
+                    break;
+                case Message.GetNextCard:
+                    nextToCornerPile.GetNextCard(cornerPile);
 
                     break;
                 case Message.SelectCards:

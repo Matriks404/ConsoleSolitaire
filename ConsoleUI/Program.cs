@@ -21,13 +21,26 @@ namespace ConsoleUI
             {
                 board.Display();
 
-                GameModel.Message msg = Input.HandleInput(ref board);
+                GameModel.Message msg = Input.Handle(ref board);
+
+                //TODO: This should not be in this place?
+                bool updateSelectablePiles = false;
+
+                if (msg == GameModel.Message.GetNextCard && game.nextToCornerPile.Any() == false)
+                {
+                    updateSelectablePiles = true;
+                }
 
                 game.Update(msg);
+
+                if (updateSelectablePiles)
+                {
+                    board.SetupSelectablePiles();
+                }
             } while (game.StillPlaying);
 
-            //TODO: This will be wrong in the future.
-            Console.CursorTop = 15;
+            Console.Clear();
+            Console.SetCursorPosition(0, 0);
         }
     }
 }

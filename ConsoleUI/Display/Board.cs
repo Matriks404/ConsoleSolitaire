@@ -10,9 +10,9 @@ namespace ConsoleUI.Display
     {
         private GameModel.Instance game;
 
-        private GameModel.PileBase[] SelectablePiles { get; set; }
+        private List<GameModel.PileBase> SelectablePiles;
         private int SelectedPilePosition { get; set; }
-        private GameModel.PileBase SelectedPile { get; set; }
+        public GameModel.PileBase SelectedPile { get; set; }
 
         public Board(GameModel.Instance game)
         {
@@ -24,19 +24,31 @@ namespace ConsoleUI.Display
         public void Display()
         {
             Pile.Display(game.cornerPile, 0, 3);
-            Pile.Display(game.nextToCornerPile, 12, 3);
+
+            if (game.nextToCornerPile.Any())
+            {
+                Pile.Display(game.nextToCornerPile, 12, 3);
+            }
 
             if (game.winningClubsPile.Any())
+            {
                 Pile.Display(game.winningClubsPile, 36, 3);
+            }
 
             if (game.winningDiamondsPile.Any())
+            {
                 Pile.Display(game.winningDiamondsPile, 48, 3);
+            }
 
             if (game.winningHeartsPile.Any())
+            {
                 Pile.Display(game.winningHeartsPile, 60, 3);
+            }
 
             if (game.winningSpadesPile.Any())
+            {
                 Pile.Display(game.winningSpadesPile, 72, 3);
+            }
 
             for (int i = 0; i < game.fieldPiles.Length; i++)
             {
@@ -50,7 +62,7 @@ namespace ConsoleUI.Display
 
             if (SelectedPilePosition == 0)
             {
-                SelectedPilePosition = SelectablePiles.Length - 1;
+                SelectedPilePosition = SelectablePiles.Count - 1;
             }
             else
             {
@@ -64,7 +76,7 @@ namespace ConsoleUI.Display
         {
             SelectedPile.Selected = false;
 
-            if (SelectedPilePosition + 1 < SelectablePiles.Length)
+            if (SelectedPilePosition + 1 < SelectablePiles.Count)
             {
                 SelectedPilePosition++;
             }
@@ -76,19 +88,21 @@ namespace ConsoleUI.Display
             UpdateSelectedPile();
         }
 
-        private void SetupSelectablePiles()
+        public void SetupSelectablePiles()
         {
-            SelectablePiles = new GameModel.PileBase[] {
-                game.cornerPile,
-                game.nextToCornerPile,
-                game.fieldPiles[0],
-                game.fieldPiles[1],
-                game.fieldPiles[2],
-                game.fieldPiles[3],
-                game.fieldPiles[4],
-                game.fieldPiles[5],
-                game.fieldPiles[6],
-            };
+            SelectablePiles = new List<GameModel.PileBase>();
+
+            SelectablePiles.Add(game.cornerPile);
+
+            if (game.nextToCornerPile.Any())
+            {
+                SelectablePiles.Add(game.nextToCornerPile);
+            }
+
+            foreach (GameModel.FieldPile fieldPile in game.fieldPiles)
+            {
+                SelectablePiles.Add(fieldPile);
+            }
 
             UpdateSelectedPile();
         }
