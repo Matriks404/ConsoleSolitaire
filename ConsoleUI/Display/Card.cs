@@ -52,7 +52,8 @@ namespace ConsoleUI.Display
                 if (partial)
                 {
                     lines = 2;
-                } else
+                }
+                else
                 {
                     lines = 3;
                 }

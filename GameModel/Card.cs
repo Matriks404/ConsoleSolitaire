@@ -11,7 +11,7 @@ namespace GameModel
         public bool Visible { get; set; }
         public CardSuit Suit { get; private set; }
         public CardNumber Number { get; private set; }
-   
+
         public Card(CardSuit suit, CardNumber number)
         {
             this.Suit = suit;
@@ -43,11 +43,13 @@ namespace GameModel
             Spades
         }
 
-        public string GetNumber() { 
+        public string GetNumber()
+        {
             if (Number == CardNumber.Ace || Number > CardNumber.Ten)
             {
                 return Number.ToString();
-            } else
+            }
+            else
             {
                 return ((int)Number).ToString();
             }

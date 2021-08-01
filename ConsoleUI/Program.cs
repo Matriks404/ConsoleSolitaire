@@ -21,22 +21,10 @@ namespace ConsoleUI
             {
                 board.Display();
 
-                GameModel.Message msg = Input.Handle(ref board);
-
-                //TODO: This should not be in this place?
-                bool updateSelectablePiles = false;
-
-                if (msg == GameModel.Message.GetNextCard && game.nextToCornerPile.Any() == false)
-                {
-                    updateSelectablePiles = true;
-                }
+                //TODO: Refactor input and updating the game.
+                GameModel.Message msg = Input.Handle(board, game);
 
                 game.Update(msg);
-
-                if (updateSelectablePiles)
-                {
-                    board.SetupSelectablePiles();
-                }
             } while (game.StillPlaying);
 
             Console.Clear();

@@ -18,7 +18,7 @@ namespace ConsoleUI.Display
         {
             this.game = game;
 
-            SetupSelectablePiles();
+            SetupSelectablePiles(false);
         }
 
         public void Display()
@@ -88,13 +88,13 @@ namespace ConsoleUI.Display
             UpdateSelectedPile();
         }
 
-        public void SetupSelectablePiles()
+        public void SetupSelectablePiles(bool withNextToCornerPile)
         {
             SelectablePiles = new List<GameModel.PileBase>();
 
             SelectablePiles.Add(game.cornerPile);
 
-            if (game.nextToCornerPile.Any())
+            if (withNextToCornerPile)
             {
                 SelectablePiles.Add(game.nextToCornerPile);
             }

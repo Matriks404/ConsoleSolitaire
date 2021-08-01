@@ -11,7 +11,7 @@ namespace GameModel
         public bool Selected { get; set; }
 
         public List<Card> contents = new List<Card>();
-        
+
         public int Count => contents.Count;
 
         public Card this[int i]
@@ -23,7 +23,7 @@ namespace GameModel
         public void Add(Card card) => contents.Add(card);
         public bool Any() => contents.Any();
 
-        public Card Last() => (Any()) ? contents.Last() : null; 
+        public Card Last() => (Any()) ? contents.Last() : null;
 
         public void Shuffle()
         {

@@ -9,7 +9,7 @@ namespace ConsoleUI
     public static class Input
     {
         //TODO: Is there a better way to do this?
-        public static GameModel.Message Handle(ref Display.Board board)
+        public static GameModel.Message Handle(Display.Board board, GameModel.Instance game)
         {
             var key = Console.ReadKey();
 
@@ -28,6 +28,11 @@ namespace ConsoleUI
                 case ConsoleKey.Spacebar:
                     if (board.SelectedPile.GetType() == typeof(GameModel.CornerPile))
                     {
+                        if (game.nextToCornerPile.Any() == false)
+                        {
+                            board.SetupSelectablePiles(true);
+                        }
+
                         return GameModel.Message.GetNextCard;
                     }
                     else
