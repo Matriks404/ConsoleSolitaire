@@ -12,9 +12,9 @@ namespace GameModel
 
         public List<Card> contents = new List<Card>();
         
-        protected int Count => contents.Count;
+        public int Count => contents.Count;
 
-        protected Card this[int i]
+        public Card this[int i]
         {
             get => contents[i];
             set => contents[i] = value;

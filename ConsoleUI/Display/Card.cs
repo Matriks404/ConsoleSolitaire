@@ -14,7 +14,7 @@ namespace ConsoleUI.Display
         string cardSuit;
 
         //TODO: Card selection instead of pile selection for field piles.
-        public void Display(GameModel.Card card, int x, int y, bool selected)
+        public void Display(GameModel.Card card, int x, int y, bool selected, bool partial)
         {
             boundary = GetBoundary(selected);
 
@@ -22,8 +22,11 @@ namespace ConsoleUI.Display
             Console.SetCursorPosition(x, y);
             Console.Write(HorizontalBoundary());
 
-            Console.SetCursorPosition(x, y + 4);
-            Console.Write(HorizontalBoundary());
+            if (!partial)
+            {
+                Console.SetCursorPosition(x, y + 4);
+                Console.Write(HorizontalBoundary());
+            }
 
             if (card.Visible)
             {
@@ -36,12 +39,25 @@ namespace ConsoleUI.Display
                 Console.SetCursorPosition(x, y + 2);
                 Console.Write(SuitName());
 
-                Console.SetCursorPosition(x, y + 3);
-                Console.Write(BottomNumber());
+                if (!partial)
+                {
+                    Console.SetCursorPosition(x, y + 3);
+                    Console.Write(BottomNumber());
+                }
             }
             else
             {
-                for (int i = 1; i <= 3; i++)
+                int lines;
+
+                if (partial)
+                {
+                    lines = 2;
+                } else
+                {
+                    lines = 3;
+                }
+
+                for (int i = 1; i <= lines; i++)
                 {
                     Console.SetCursorPosition(x, y + i);
                     Console.Write(VerticalBoundary());
