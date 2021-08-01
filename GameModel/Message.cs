@@ -10,8 +10,6 @@ namespace GameModel
     {
         DoNothing,
         Exit,
-        GoToPreviousPile,
-        GoToNextPile,
         SelectCards
     }
 }

@@ -8,20 +8,28 @@ namespace ConsoleUI
 {
     public static class Input
     {
-        public static GameModel.Message HandleInput()
+        //TODO: Is there a better way to do this?
+        public static GameModel.Message HandleInput(ref Display.Board board)
         {
             var key = Console.ReadKey();
 
-            GameModel.Message msg = key.Key switch
+            switch (key.Key)
             {
-                ConsoleKey.Escape => GameModel.Message.Exit,
-                ConsoleKey.LeftArrow => GameModel.Message.GoToPreviousPile,
-                ConsoleKey.RightArrow => GameModel.Message.GoToNextPile,
-                ConsoleKey.Spacebar => GameModel.Message.SelectCards,
-                _ => GameModel.Message.DoNothing
-            };
+                case ConsoleKey.Escape:
+                    return GameModel.Message.Exit;
+                case ConsoleKey.LeftArrow:
+                    board.GoToPreviousPile();
 
-            return msg;
+                    return GameModel.Message.DoNothing;
+                case ConsoleKey.RightArrow:
+                    board.GoToNextPile();
+
+                    return GameModel.Message.DoNothing;
+                case ConsoleKey.Spacebar:
+                    return GameModel.Message.SelectCards;
+                default:
+                    return GameModel.Message.DoNothing;
+            }
         }
     }
 }

@@ -11,9 +11,6 @@ namespace GameModel
     public class Instance
     {
         public bool StillPlaying { get; private set; }
-        private PileBase[] SelectablePiles { get; set; }
-        private int SelectedPilePosition { get; set; }
-        private PileBase SelectedPile { get; set; }
 
         public readonly CornerPile cornerPile = new CornerPile();
         public readonly NextToCornerPile nextToCornerPile = new NextToCornerPile();
@@ -40,8 +37,6 @@ namespace GameModel
 
             //TODO: Remove this later. We want user to get the first card from the corner pile.
             nextToCornerPile.GetNextCard(cornerPile);
-
-            SetupSelectablePiles();
         }
 
         public void Update(Message msg)
@@ -52,14 +47,6 @@ namespace GameModel
                     break;
                 case Message.Exit:
                     StillPlaying = false;
-
-                    break;
-                case Message.GoToPreviousPile:
-                    GoToPreviousPile();
-
-                    break;
-                case Message.GoToNextPile:
-                    GoToNextPile();
 
                     break;
                 case Message.SelectCards:
@@ -79,60 +66,6 @@ namespace GameModel
             winningDiamondsPile.Last().Visible = true;
             winningHeartsPile.Last().Visible = true;
             winningSpadesPile.Last().Visible = true;
-        }
-
-        private void SetupSelectablePiles()
-        {
-            SelectablePiles = new PileBase[] {
-                cornerPile,
-                nextToCornerPile,
-                fieldPiles[0],
-                fieldPiles[1],
-                fieldPiles[2],
-                fieldPiles[3],
-                fieldPiles[4],
-                fieldPiles[5],
-                fieldPiles[6],
-            };
-
-            UpdateSelectedPile();
-        }
-        private void GoToPreviousPile()
-        {
-            SelectedPile.Selected = false;
-
-            if (SelectedPilePosition == 0)
-            {
-                SelectedPilePosition = SelectablePiles.Length - 1;
-            }
-            else
-            {
-                SelectedPilePosition--;
-            }
-
-            UpdateSelectedPile();
-        }
-
-        private void GoToNextPile()
-        {
-            SelectedPile.Selected = false;
-
-            if (SelectedPilePosition + 1 < SelectablePiles.Length)
-            {
-                SelectedPilePosition++;
-            }
-            else
-            {
-                SelectedPilePosition = 0;
-            }
-
-            UpdateSelectedPile();
-        }
-
-        private void UpdateSelectedPile()
-        {
-            SelectedPile = SelectablePiles[SelectedPilePosition];
-            SelectedPile.Selected = true;
         }
     }
 }

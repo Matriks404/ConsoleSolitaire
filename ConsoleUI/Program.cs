@@ -21,7 +21,7 @@ namespace ConsoleUI
             {
                 board.Display();
 
-                GameModel.Message msg = Input.HandleInput();
+                GameModel.Message msg = Input.HandleInput(ref board);
 
                 game.Update(msg);
             } while (game.StillPlaying);
