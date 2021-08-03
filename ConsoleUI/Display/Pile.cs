@@ -19,9 +19,10 @@ namespace ConsoleUI.Display
 
             if (pile.GetType() == typeof(GameModel.FieldPile) && pile.Count > 1)
             {
-                Card.SelectableCards = pile.contents;
-                Card.SelectedPosition = pile.Count - 1;
-                Card.Selected = pile[Card.SelectedPosition];
+                if (selected && Card.SelectableCards == null)
+                {
+                    Card.SetupSelectableCards(pile);
+                }
 
                 for (int i = 0; i < pile.Count - 1; i++)
                 {
@@ -30,23 +31,19 @@ namespace ConsoleUI.Display
                     y += 3;
                 }
             }
-            else
-            {
-                Card.SelectableCards = null;
-            }
 
             card.Show(pile.Last(), x, y, selected, false);
         }
 
         public static void GoToPrevious()
         {
-            if (Pile.SelectedPosition == 0)
+            if (SelectedPosition == 0)
             {
-                Pile.SelectedPosition = Pile.SelectablePiles.Count - 1;
+                SelectedPosition = SelectablePiles.Count - 1;
             }
             else
             {
-                Pile.SelectedPosition--;
+                SelectedPosition--;
             }
 
             UpdateSelected();
@@ -54,13 +51,13 @@ namespace ConsoleUI.Display
 
         public static void GoToNext()
         {
-            if (Pile.SelectedPosition + 1 < Pile.SelectablePiles.Count)
+            if (SelectedPosition + 1 < SelectablePiles.Count)
             {
-                Pile.SelectedPosition++;
+                SelectedPosition++;
             }
             else
             {
-                Pile.SelectedPosition = 0;
+                SelectedPosition = 0;
             }
 
             UpdateSelected();

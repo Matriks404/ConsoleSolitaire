@@ -8,17 +8,62 @@ namespace ConsoleUI.Display
 {
     public class Card
     {
+        public static List<GameModel.Card> SelectableCards { get; set; }
+        public static int SelectedPosition { get; set; }
+        public static GameModel.Card Selected { get; set; }
         int width = 10;
 
         private char Boundary { get; set; }
         private string CardNumber { get; set; }
         private string CardSuit { get; set; }
 
-        public static List<GameModel.Card> SelectableCards { get; set; }
-        public static int SelectedPosition { get; set; }
-        public static GameModel.Card Selected { get; set; }
+        public static void GoToPrevious()
+        {
+            if (IsSelectable())
+            {
+                if (SelectedPosition == 0)
+                {
+                    SelectedPosition = SelectableCards.Count - 1;
+                }
+                else
+                {
+                    SelectedPosition--;
+                }
 
-        //TODO: Card selection instead of pile selection for field piles.
+                UpdateSelected();
+            }
+        }
+
+        public static void GoToNext()
+        {
+            if (IsSelectable())
+            {
+                if (SelectedPosition + 1 < SelectableCards.Count)
+                {
+                    SelectedPosition++;
+                }
+                else
+                {
+                    SelectedPosition = 0;
+                }
+
+                UpdateSelected();
+            }
+        }
+
+        public static void SetupSelectableCards(GameModel.PileBase pile)
+        {
+            SelectableCards = pile.contents;
+            SelectedPosition = pile.Count - 1;
+
+            UpdateSelected();
+        }
+
+        public static void UpdateSelected()
+        {
+            Selected = SelectableCards[SelectedPosition];
+        }
+
         public void Show(GameModel.Card card, int x, int y, bool pileSelected, bool partial)
         {
             Boundary = GetBoundary(card, pileSelected);
@@ -70,6 +115,8 @@ namespace ConsoleUI.Display
                 }
             }
         }
+
+        private static bool IsSelectable() => (Display.Pile.Selected.GetType() == typeof(GameModel.FieldPile) && SelectableCards != null);
 
         private string BottomNumber() => Boundary + Spaces() + CardNumber + Boundary;
 

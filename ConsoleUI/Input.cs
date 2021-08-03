@@ -19,10 +19,20 @@ namespace ConsoleUI
                     return GameModel.Message.Exit;
                 case ConsoleKey.LeftArrow:
                     Display.Pile.GoToPrevious();
+                    Display.Card.SelectableCards = null;
 
                     return GameModel.Message.DoNothing;
                 case ConsoleKey.RightArrow:
                     Display.Pile.GoToNext();
+                    Display.Card.SelectableCards = null;
+
+                    return GameModel.Message.DoNothing;
+                case ConsoleKey.UpArrow:
+                    Display.Card.GoToPrevious();
+
+                    return GameModel.Message.DoNothing;
+                case ConsoleKey.DownArrow:
+                    Display.Card.GoToNext();
 
                     return GameModel.Message.DoNothing;
                 case ConsoleKey.Spacebar:
