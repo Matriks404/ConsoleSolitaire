@@ -6,22 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleUI.Display
 {
-    public class Board
+    public static class Board
     {
-        private GameModel.Instance game;
-
-        private List<GameModel.PileBase> SelectablePiles;
-        private int SelectedPilePosition { get; set; }
-        public GameModel.PileBase SelectedPile { get; set; }
-
-        public Board(GameModel.Instance game)
-        {
-            this.game = game;
-
-            SetupSelectablePiles(false);
-        }
-
-        public void Display()
+        public static void Display(GameModel.Instance game)
         {
             Pile.Display(game.cornerPile, 0, 3);
 
@@ -54,63 +41,6 @@ namespace ConsoleUI.Display
             {
                 Pile.Display(game.fieldPiles[i], i * 12, 10);
             }
-        }
-
-        public void GoToPreviousPile()
-        {
-            SelectedPile.Selected = false;
-
-            if (SelectedPilePosition == 0)
-            {
-                SelectedPilePosition = SelectablePiles.Count - 1;
-            }
-            else
-            {
-                SelectedPilePosition--;
-            }
-
-            UpdateSelectedPile();
-        }
-
-        public void GoToNextPile()
-        {
-            SelectedPile.Selected = false;
-
-            if (SelectedPilePosition + 1 < SelectablePiles.Count)
-            {
-                SelectedPilePosition++;
-            }
-            else
-            {
-                SelectedPilePosition = 0;
-            }
-
-            UpdateSelectedPile();
-        }
-
-        public void SetupSelectablePiles(bool withNextToCornerPile)
-        {
-            SelectablePiles = new List<GameModel.PileBase>();
-
-            SelectablePiles.Add(game.cornerPile);
-
-            if (withNextToCornerPile)
-            {
-                SelectablePiles.Add(game.nextToCornerPile);
-            }
-
-            foreach (GameModel.FieldPile fieldPile in game.fieldPiles)
-            {
-                SelectablePiles.Add(fieldPile);
-            }
-
-            UpdateSelectedPile();
-        }
-
-        private void UpdateSelectedPile()
-        {
-            SelectedPile = SelectablePiles[SelectedPilePosition];
-            SelectedPile.Selected = true;
         }
     }
 }

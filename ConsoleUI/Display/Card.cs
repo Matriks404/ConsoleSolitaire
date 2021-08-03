@@ -9,14 +9,19 @@ namespace ConsoleUI.Display
     public class Card
     {
         int width = 10;
-        char boundary;
-        string cardNumber;
-        string cardSuit;
+
+        private char Boundary { get; set; }
+        private string CardNumber { get; set; }
+        private string CardSuit { get; set; }
+
+        public static List<GameModel.Card> SelectableCards { get; set; }
+        public static int SelectedPosition { get; set; }
+        public static GameModel.Card Selected { get; set; }
 
         //TODO: Card selection instead of pile selection for field piles.
-        public void Display(GameModel.Card card, int x, int y, bool selected, bool partial)
+        public void Display(GameModel.Card card, int x, int y, bool pileSelected, bool partial)
         {
-            boundary = GetBoundary(selected);
+            Boundary = GetBoundary(card, pileSelected);
 
             // Write top and bottom boundaries.
             Console.SetCursorPosition(x, y);
@@ -30,8 +35,8 @@ namespace ConsoleUI.Display
 
             if (card.Visible)
             {
-                cardNumber = card.GetNumber();
-                cardSuit = card.Suit.ToString();
+                CardNumber = card.GetNumber();
+                CardSuit = card.Suit.ToString();
 
                 Console.SetCursorPosition(x, y + 1);
                 Console.Write(TopNumber());
@@ -66,11 +71,11 @@ namespace ConsoleUI.Display
             }
         }
 
-        private string BottomNumber() => boundary + Spaces() + cardNumber + boundary;
+        private string BottomNumber() => Boundary + Spaces() + CardNumber + Boundary;
 
-        private string TopNumber() => boundary + cardNumber + Spaces() + boundary;
+        private string TopNumber() => Boundary + CardNumber + Spaces() + Boundary;
 
-        private char GetBoundary(bool selected) => (selected) ? ':' : '#';
+        private char GetBoundary(GameModel.Card card, bool pileSelected) => ((card == Selected || SelectableCards == null) && pileSelected) ? ':' : '#';
 
         private string HorizontalBoundary()
         {
@@ -78,7 +83,7 @@ namespace ConsoleUI.Display
 
             for (int i = 0; i < width; i++)
             {
-                line += boundary;
+                line += Boundary;
             }
 
             return line;
@@ -88,21 +93,21 @@ namespace ConsoleUI.Display
         {
             string line = string.Empty;
 
-            line += boundary;
+            line += Boundary;
 
             for (int i = 0; i < width - 2; i++)
             {
                 line += ' ';
             }
 
-            line += boundary;
+            line += Boundary;
 
             return line;
         }
 
         private string Spaces()
         {
-            int amountOfSpaces = width - 2 - cardNumber.Length;
+            int amountOfSpaces = width - 2 - CardNumber.Length;
             string line = string.Empty;
 
             for (int i = 0; i < amountOfSpaces; i++)
@@ -117,27 +122,27 @@ namespace ConsoleUI.Display
         {
             string line = string.Empty;
 
-            int leftSpaces = (width - cardSuit.Length - 2) / 2;
+            int leftSpaces = (width - CardSuit.Length - 2) / 2;
             int rightSpaces = leftSpaces;
 
-            if (cardSuit.Length % 2 == 1)
+            if (CardSuit.Length % 2 == 1)
                 rightSpaces++;
 
-            line += boundary;
+            line += Boundary;
 
             for (int i = 0; i < leftSpaces; i++)
             {
                 line += ' ';
             }
 
-            line += cardSuit;
+            line += CardSuit;
 
             for (int i = 0; i < rightSpaces; i++)
             {
                 line += ' ';
             }
 
-            line += boundary;
+            line += Boundary;
 
             return line;
         }

@@ -50,8 +50,9 @@ namespace GameModel
                     nextToCornerPile.GetNextCard(cornerPile);
 
                     break;
+                //TODO
                 case Message.SelectCards:
-                    throw new NotImplementedException();
+                    break;
             }
         }
 

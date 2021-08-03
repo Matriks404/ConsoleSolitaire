@@ -15,14 +15,14 @@ namespace ConsoleUI
             Console.Write($"Version: {version} running on {Environment.OSVersion.VersionString}");
 
             var game = new GameModel.Instance();
-            var board = new Display.Board(game);
+            Display.Pile.SetupSelectablePiles(game, false);
 
             do
             {
-                board.Display();
+                Display.Board.Display(game);
 
                 //TODO: Refactor input and updating the game.
-                GameModel.Message msg = Input.Handle(board, game);
+                GameModel.Message msg = Input.Handle(game);
 
                 game.Update(msg);
             } while (game.StillPlaying);

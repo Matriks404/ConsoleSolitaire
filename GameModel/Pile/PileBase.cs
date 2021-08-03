@@ -8,8 +8,6 @@ namespace GameModel
 {
     public abstract class PileBase
     {
-        public bool Selected { get; set; }
-
         public List<Card> contents = new List<Card>();
 
         public int Count => contents.Count;
