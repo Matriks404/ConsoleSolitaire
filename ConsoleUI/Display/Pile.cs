@@ -12,7 +12,7 @@ namespace ConsoleUI.Display
         public static int SelectedPosition { get; set; }
         public static GameModel.PileBase Selected { get; set; }
 
-        public static void Display(GameModel.PileBase pile, int x, int y)
+        public static void Show(GameModel.PileBase pile, int x, int y)
         {
             var card = new Card();
             bool selected = (pile == Selected);
@@ -25,7 +25,7 @@ namespace ConsoleUI.Display
 
                 for (int i = 0; i < pile.Count - 1; i++)
                 {
-                    card.Display(pile[i], x, y, selected, true);
+                    card.Show(pile[i], x, y, selected, true);
 
                     y += 3;
                 }
@@ -35,7 +35,7 @@ namespace ConsoleUI.Display
                 Card.SelectableCards = null;
             }
 
-            card.Display(pile.Last(), x, y, selected, false);
+            card.Show(pile.Last(), x, y, selected, false);
         }
 
         public static void GoToPrevious()

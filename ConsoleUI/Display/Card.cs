@@ -19,7 +19,7 @@ namespace ConsoleUI.Display
         public static GameModel.Card Selected { get; set; }
 
         //TODO: Card selection instead of pile selection for field piles.
-        public void Display(GameModel.Card card, int x, int y, bool pileSelected, bool partial)
+        public void Show(GameModel.Card card, int x, int y, bool pileSelected, bool partial)
         {
             Boundary = GetBoundary(card, pileSelected);
 

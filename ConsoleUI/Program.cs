@@ -19,7 +19,7 @@ namespace ConsoleUI
 
             do
             {
-                Display.Board.Display(game);
+                Display.Board.Show(game);
 
                 //TODO: Refactor input and updating the game.
                 GameModel.Message msg = Input.Handle(game);
